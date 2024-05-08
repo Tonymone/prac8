@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tab 1</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Camera and Gallery buttons -->
+  <div style="width: 400px; height: 310px; background-color: rgba(129, 129, 129, 0.292); margin: 13px;">
+    <video style="width: 400px; height: 310px;" #video autoplay *ngIf="showCamera"></video>
+    <ion-fab vertical="center" horizontal="center" *ngIf="showCamera">
+      <ion-fab-button (click)="captureImage()">
+        <ion-icon name="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="center" horizontal="end" *ngIf="showCamera">
+      <ion-fab-button (click)="openGallery()">
+        <ion-icon name="images"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="center" horizontal="start" *ngIf="showCamera">
+      <ion-fab-button (click)="closeCamera()">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <!-- <ion-button expand="block" (click)="closeCamera()">Close Camera</ion-button> -->
+    <ion-button expand="block" (click)="openCamera()" *ngIf="oopenCamera" style="padding-top: 120px;">Open Camera</ion-button>
+  </div>
+  
+ 
+  <canvas style="width: 400px; height: 350px; margin: 13px; display: none;" #canvas *ngIf="showCamera"></canvas>
+  
+  <!-- Gallery display -->
+  <div *ngIf="showGallery" class="gallery-container">
+    <h2 style="padding-left:5px; padding-top: 120px; padding-right: 220px;">Captured Images</h2>
+    <ion-card *ngFor="let image of capturedImages; let i = index" class="gallery-card">
+      <img [src]="image" (click)="deleteImage(i)" class="gallery-image">
+      <ion-button (click)="deleteImage(i)" color="danger" class="delete-button"><ion-icon name="trash-bin"></ion-icon></ion-button>
+    </ion-card>
+  </div>
+</ion-content>

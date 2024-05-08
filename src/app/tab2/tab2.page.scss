@@ -1,0 +1,104 @@
+.calendar-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  text-align: center;
+  padding: 20px;
+}
+
+.calendar-body {
+  flex: 1;
+}
+
+.calendar-grid {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-weight: bold;
+  background-color: #3880ff;
+  color: #fff;
+}
+
+.calendar-date {
+  text-align: center;
+}
+
+// Adjustments to the calendar date boxes for better layout consistency
+.date-box {
+  padding: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 40px; /* Adjust width */
+  height: 40px; /* Adjust height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+// Add a subtle animation on hover for better interaction
+.date-box:hover {
+  transform: scale(1.1); /* Scale up on hover */
+}
+
+// Introduce different background colors for the days of the week
+.calendar-weekday {
+  text-align: center;
+  font-weight: bold;
+  // background-color: #26ab56; /* Green */
+  background-color: crimson; /* Green */
+  color: #fff;
+}
+
+// Differentiate the current month's dates from other months
+.currentDate {
+  background-color: #ffcc00; /* Yellow */
+  color: #333;
+}
+
+.otherMonth {
+  color: #ccc; /* Light gray for days in other months */
+}
+
+// Add a hover effect to the event indicator
+.event-indicator {
+  position: absolute;
+  bottom: 42px;
+  right: 25px;
+  width: 8px;
+  height: 8px;
+  background-color: #3880ff; /* Blue */
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Add transition */
+}
+
+.event-indicator:hover {
+  transform: scale(3.2); /* Scale up on hover */
+}
+
+// Further adjustments for modal styles
+ion-modal {
+  --height: 70%; /* Adjust modal height */
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgba(209, 213, 219, 0.5);
+  opacity: 1;
+}
+
+ion-modal ion-toolbar {
+  --background: #3880ff;
+  --color: white;
+}

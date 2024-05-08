@@ -1,0 +1,98 @@
+<ion-content [fullscreen]="true">
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <ion-row class="calendar-month">
+        <ion-col size="auto" (click)="goToLastMonth()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-col>
+        <ion-col>{{ currentMonth }} {{ currentYear }}</ion-col>
+        <ion-col size="auto" (click)="goToNextMonth()">
+          <ion-icon name="arrow-forward" ></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div class="calendar-body">
+      <ion-grid class="calendar-grid">
+        <ion-row class="calendar-weekday">
+          <ion-col *ngFor="let day of weekDays">{{ day }}</ion-col>
+        </ion-row>
+        <ion-row class="calendar-date">
+          <ion-col *ngFor="let day of days" (click)="selectDate(day)">
+            <div class="date-box" [class.currentDate]="day === currentDate" [ngClass]="{'otherMonth': isOtherMonth(day)}">
+              {{ day }}
+              <div *ngIf="events[day]" class="event-indicator" (click)="showEventDetails(day)">
+                <!-- <ion-button size="small" color="danger" (click)="deleteEvent(day, index)">Delete</ion-button> -->
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+</div>
+
+  </div>
+  <ion-modal [isOpen]="isEventDetailsOpen" (didDismiss)="isEventDetailsOpen = false">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Customise events</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="isEventDetailsOpen = false">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+
+        <ion-list>
+          <ion-item *ngFor="let event of eventDetails; let index = index" (click)="loadEventDetails(event)">
+            <ion-label>
+              <ion-grid>
+                <ion-row>
+                  <!-- Title -->
+                  <ion-col size="8">
+                    <h1>{{ event.title }}</h1>
+                  </ion-col>
+                  <!-- Edit button -->
+                  <ion-col size="1" >
+                    <ion-button size="small" color="primary" (click)="toggleEditMode(event)">
+                      <ion-icon name="create-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="1"></ion-col>
+                  <!-- Delete button -->
+                  <ion-col size="1">
+                    <ion-button size="small" color="danger" (click)="deleteEvent(index)">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+                <!-- Description -->
+                <ion-row>
+                  <ion-col>
+                    <p *ngIf="event.description">Description: {{ event.description }}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+<!-- Add an input form to capture event details -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-item>
+      <ion-label position="floating"></ion-label>
+      <ion-input [(ngModel)]="newEvent.title" type="text" placeholder="Event Title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating"></ion-label>
+      <ion-input [(ngModel)]="newEvent.description" type="text" placeholder="Description"></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="addEvent()">Add Event</ion-button>
+  </ion-toolbar>
+</ion-footer>
